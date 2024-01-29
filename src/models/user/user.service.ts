@@ -9,21 +9,8 @@ export class UserService {
         private readonly userRepository: UserRepository
     ) { }
 
-    async findUserById(userId: string) {
-        const query = await this.userRepository.findUserByField("id", userId)
-
-        return query;
-    }
-
-    async findUserByUsername(username: string) {
-        const query = await this.userRepository.findUserByField("username", username)
-
-        return query
-    }
-
-
-    async findUserByEmail(email: string) {
-        const query = await this.userRepository.findUserByField("email", email)
+    async findUserByField(field: keyof User, value: string) {
+        const query = await this.userRepository.findUserByField(field, value);
 
         return query
     }

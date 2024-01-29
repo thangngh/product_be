@@ -48,7 +48,7 @@ export class AuthService {
     async verifyToken(payload: JWTPayload) {
         try {
             const { userId } = payload;
-            const user = await this.userService.findUserById(userId)
+            const user = await this.userService.findUserByField("id", userId)
 
             return user;
         } catch (error) {
@@ -61,13 +61,13 @@ export class AuthService {
     async register(body: SignUpBodyDTO, @Res() res: Response) {
         const { username, password, email } = body;
 
-        const existUsername = await this.userService.findUserByUsername(username)
+        const existUsername = await this.userService.findUserByField("username", username)
 
         if (!!existUsername) {
             throw new BadRequestException(SYSTEM_CODE.USER_ALREADY_EXISTS)
         }
 
-        const existEmail = await this.userService.findUserByEmail(email)
+        const existEmail = await this.userService.findUserByField("email", email)
 
         if (!!existEmail) {
             throw new BadRequestException(SYSTEM_CODE.EMAIL_ALREADY_EXISTS)
@@ -106,7 +106,7 @@ export class AuthService {
 
         const { rfToken } = body
         const { userId } = this.jwtService.decode(rfToken);
-        const user = await this.userService.findUserById(userId)
+        const user = await this.userService.findUserByField("id", userId)
 
         if (!user) {
             throw new BadRequestException(SYSTEM_CODE.FORBIDDEN)
@@ -137,13 +137,13 @@ export class AuthService {
     async login(body: LoginBodyDTO, @Res() res: Response) {
         const { username, password } = body;
 
-        const validateUsername = await this.userService.findUserByUsername(username)
+        const validateUsername = await this.userService.findUserByField("username", username)
 
         if (!validateUsername) {
             throw new BadRequestException(SYSTEM_CODE.USERNAME_OR_PASSWORD_INVALID)
         }
 
-        const getUser = await this.userService.findUserByUsername(username)
+        const getUser = await this.userService.findUserByField("username", username)
 
         const comparePassword = await validateHash(getUser.password, password)
 
