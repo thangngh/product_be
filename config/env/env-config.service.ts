@@ -82,5 +82,23 @@ export class EnvServiceConfig {
     JWT_REFRESH_SECRET_EXPIRES() {
         return this.configService.get<string>("JWT_REFRESH_SECRET_EXPIRES")
     }
+
+    @Expose()
+    @IsString()
+    CLOUDINARY_CLOUD_NAME() {
+        return this.configService.get<string>("CLOUDINARY_CLOUD_NAME")
+    }
+
+    @Expose()
+    @IsString()
+    CLOUDINARY_API_KEY() {
+        return this.configService.get<string>("CLOUDINARY_API_KEY")
+    }
+
+    @Expose()
+    @IsString()
+    CLOUDINARY_API_SECRET() {
+        return this.configService.get<string>("CLOUDINARY_API_SECRET")
+    }
 }
 

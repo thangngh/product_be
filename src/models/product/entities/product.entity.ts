@@ -20,11 +20,11 @@ export class Product extends BaseEntities {
     desc: string;
 
     @IsOptional()
-    @Column({ name: 'brand_id', nullable: true })
+    @Column({ name: 'brand_id', nullable: true, type: 'text' })
     brandId: string;
 
     @IsOptional()
-    @Column({ name: 'manufacturer_id', nullable: true })
+    @Column({ name: 'manufacturer_id', nullable: true, type: 'text' })
     manufactureId: string;
 
     @IsNotEmpty()

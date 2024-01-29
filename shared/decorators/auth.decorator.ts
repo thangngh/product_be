@@ -3,7 +3,7 @@ import {
     ExecutionContext,
     UnauthorizedException,
 } from '@nestjs/common';
-import { JWTPayload } from 'src/auth/authentication/jwt.payload';
+import { JWTPayload } from 'src/auth/jwt.payload';
 
 interface IRequest<T extends JWTPayload> {
     user: T & { [key: string]: unknown };

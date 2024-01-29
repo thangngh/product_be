@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { BaseRepository } from "@shared/repository/base.repository";
 import { UserRole } from "./entities/user_role.entity";
-import { DataSource } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { CreateUserRoleBodyDTO } from "@shared/dtos/user_role/create.user_role.dto";
 
 @Injectable()
-export class UserRoleRepository extends BaseRepository<UserRole> {
+export class UserRoleRepository extends Repository<UserRole> {
 
     constructor(public dataSource: DataSource) {
-        super(dataSource)
+        super(UserRole, dataSource.createEntityManager())
     }
 
     createUserRole(body: CreateUserRoleBodyDTO[]) {

@@ -1,0 +1,15 @@
+{
+  "BAD_REQUEST": "Bad request",
+  "SUCCESS": "Success",
+  "SORRY_SOMETHING_WENT_WRONG": "Some thing went wrong!",
+  "UNAUTHORIZED": "Unauthorized",
+  "INVALID_TOKEN": "Invalid token",
+  "FORBIDDEN": "Forbidden",
+  "DATA_NOT_FOUND": "Data not found",
+  "USER_NOT_FOUND": "User: {username} not found",
+  "USERNAME_OR_PASSWORD_INVALID": "Username or password invalid",
+  "USER_ALREADY_EXISTS": "User: {username} already exists",
+  "EMAIL_ALREADY_EXISTS": "Email: {email} already exists",
+  "TOKEN_EXPIRED": "Token expired",
+  "ACCOUNT_LOCKED": "Account: {username} locked"
+}

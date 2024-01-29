@@ -1,13 +1,16 @@
 import { IsNotEmpty, IsString } from "class-validator";
 import { DTO, ResponseDTO } from "../base.dto";
 import { METHOD } from "@shared/constant";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateUserRoleBodyDTO {
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     userId: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     roleId: string;

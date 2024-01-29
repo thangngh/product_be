@@ -9,22 +9,23 @@ export class UserService {
         private readonly userRepository: UserRepository
     ) { }
 
-    async findUserById(userId: string): Promise<User> {
-        const query = await this.userRepository.findUserById(userId)
+    async findUserById(userId: string) {
+        const query = await this.userRepository.findUserByField("id", userId)
 
         return query;
     }
 
-    async existUsername(username: string): Promise<boolean> {
-        const query = await this.userRepository.findUserByUsername(username)
+    async findUserByUsername(username: string) {
+        const query = await this.userRepository.findUserByField("username", username)
 
-        return !!query
+        return query
     }
 
-    async existEmail(email: string): Promise<boolean> {
-        const query = await this.userRepository.findUserByEmail(email)
 
-        return !!query;
+    async findUserByEmail(email: string) {
+        const query = await this.userRepository.findUserByField("email", email)
+
+        return query
     }
 
     async registerUser(body: SignUpBodyDTO) {

@@ -1,13 +1,13 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InitDb1704117707156 implements MigrationInterface {
-    name = 'InitDb1704117707156'
+export class InitDatabase1704700360346 implements MigrationInterface {
+    name = 'InitDatabase1704700360346'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE \`brand\` (
+            CREATE TABLE \`manufacturer\` (
                 \`id\` varchar(36) NOT NULL,
-                \`brand_name\` varchar(255) NOT NULL,
+                \`manufacturer_name\` varchar(255) NOT NULL,
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
         `);
@@ -79,7 +79,7 @@ export class InitDb1704117707156 implements MigrationInterface {
                 \`phone_number\` varchar(255) NULL,
                 \`email\` varchar(255) NOT NULL,
                 \`gender\` int NULL,
-                \`refresh_token\` varchar(255) NOT NULL,
+                \`refresh_token\` varchar(255) NULL,
                 INDEX \`IDX_7a4fd2a547828e5efe420e50d1\` (\`first_name\`),
                 INDEX \`IDX_6937e802be2946855a3ad0e6be\` (\`last_name\`),
                 UNIQUE INDEX \`IDX_d34106f8ec1ebaf66f4f8609dd\` (\`user_name\`),
@@ -101,9 +101,9 @@ export class InitDb1704117707156 implements MigrationInterface {
             ) ENGINE = InnoDB
         `);
         await queryRunner.query(`
-            CREATE TABLE \`manufacturer\` (
+            CREATE TABLE \`brand\` (
                 \`id\` varchar(36) NOT NULL,
-                \`manufacturer_name\` varchar(255) NOT NULL,
+                \`brand_name\` varchar(255) NOT NULL,
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
         `);
@@ -167,7 +167,7 @@ export class InitDb1704117707156 implements MigrationInterface {
             ALTER TABLE \`product_attribute\` DROP FOREIGN KEY \`FK_ce457dadf00a0251ed833f42b43\`
         `);
         await queryRunner.query(`
-            DROP TABLE \`manufacturer\`
+            DROP TABLE \`brand\`
         `);
         await queryRunner.query(`
             DROP TABLE \`product\`
@@ -200,7 +200,7 @@ export class InitDb1704117707156 implements MigrationInterface {
             DROP TABLE \`product_attribute\`
         `);
         await queryRunner.query(`
-            DROP TABLE \`brand\`
+            DROP TABLE \`manufacturer\`
         `);
     }
 

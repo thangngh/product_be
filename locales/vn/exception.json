@@ -1,0 +1,15 @@
+{
+  "BAD_REQUEST": "Yêu câu không hợp lệ ",
+  "SUCCESS": "Yêu cầu thành công",
+  "SORRY_SOMETHING_WENT_WRONG": "Có lỗi xảy ra!",
+  "UNAUTHORIZED": "Không được xác thực",
+  "INVALID_TOKEN": "Token sai định dạng",
+  "FORBIDDEN": "Từ chối truy cập",
+  "DATA_NOT_FOUND": "Dữ liệu không tìm thấy",
+  "USER_NOT_FOUND": "Người dùng: {username} không tìn thấy",
+  "USERNAME_OR_PASSWORD_INVALID": "Tài khoản hoặc mật khẩu không đúng",
+  "USER_ALREADY_EXISTS": "Người dùng: {username} đã tồn tại",
+  "EMAIL_ALREADY_EXISTS": "Email: {email} đã tồn tại",
+  "TOKEN_EXPIRED": "Token hết hạn truy cập",
+  "ACCOUNT_LOCKED": "Tài khoản: {username} bị khoá"
+}

@@ -5,4 +5,4 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-yarn run typeorm migration:generate database/migrations/"$1"
+yarn run typeorm migration:generate database/migrations/"$1" -p

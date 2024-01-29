@@ -4,30 +4,36 @@ import { DTO, ResponseDTO } from "../base.dto";
 import { User } from "src/models/user/entities/user.entity";
 import { UseInterceptors } from "@nestjs/common";
 import { SerializeInterceptor } from "@shared/interceptors/serialize.interceptor";
+import { ApiProperty } from "@nestjs/swagger";
 
 export class SignUpBodyDTO {
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
     public username!: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
     @Matches(strongPassword, { message: VALIDATE_MESSAGE.NOT_MATCH })
     public password!: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsEmail()
     @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
     public email!: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
     public firstName!: string;
 
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
@@ -37,6 +43,7 @@ export class SignUpBodyDTO {
 @UseInterceptors(SerializeInterceptor<User>)
 export class SignupResponseDTO extends ResponseDTO<User> {
 
+    @ApiProperty()
     @IsString()
     @IsNotEmpty()
     public accessToken!: string;

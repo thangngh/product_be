@@ -34,7 +34,8 @@ export enum SYSTEM_CODE {
     USERNAME_OR_PASSWORD_INVALID = 'USERNAME_OR_PASSWORD_INVALID',
     USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS",
     EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS",
-    TOKEN_EXPIRED = "TOKEN_EXPIRED"
+    TOKEN_EXPIRED = "TOKEN_EXPIRED",
+    ACCOUNT_LOCKED = "ACCOUNT_LOCKED"
 }
 
 export enum VALIDATE_MESSAGE {
@@ -45,3 +46,31 @@ export enum VALIDATE_MESSAGE {
 
 
 export const strongPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/g
+
+export enum LANGUAGE {
+    ENGLISH = 2,
+    VIETNAMESE = 3,
+}
+
+export enum LANGUAGE_CODE {
+    VIETNAMESE = 'vn',
+    ENGLISH = 'en',
+}
+
+type LanguageCodeMapper = {
+    [key in LANGUAGE_CODE]: LANGUAGE;
+};
+
+export const LanguageCodeMap: LanguageCodeMapper = {
+    [LANGUAGE_CODE.VIETNAMESE]: LANGUAGE.VIETNAMESE,
+    [LANGUAGE_CODE.ENGLISH]: LANGUAGE.ENGLISH,
+};
+
+
+export type TranslateDict<T> = {
+    [k in keyof T]: {
+        params: {
+            [key: string]: unknown;
+        };
+    };
+};

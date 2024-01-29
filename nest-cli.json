@@ -4,6 +4,6 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "watchAssets": true,
-    "assets": ["templates/**/*"]
+    "assets": ["templates/**/*", "locales/**/*"]
   }
 }

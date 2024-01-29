@@ -10,18 +10,10 @@ export class UserRepository extends Repository<User> {
         super(User, dataSource.createEntityManager())
     }
 
-    findUserById(id: string) {
+    findUserByField<K extends keyof User>(field: K, value: User[K]) {
         return this.findOne({
-            where: { id }
-        })
-    }
-
-    findUserByUsername(username: string) {
-        return this.findOneBy({ username })
-    }
-
-    findUserByEmail(email: string) {
-        return this.findOneBy({ email })
+            where: { [field]: value },
+        });
     }
 
     saveUser(body: CreateUserBodyDTO) {
