@@ -1,6 +1,6 @@
+import BaseEntities from "@base/base.entity";
+import { ProductInventory } from "@models/product_inventory/entities/product_inventory.entity";
 import { IsNotEmpty } from "class-validator";
-import BaseEntities from "src/base/base.entity";
-import { ProductInventory } from "src/models/product_inventory/entities/product_inventory.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()

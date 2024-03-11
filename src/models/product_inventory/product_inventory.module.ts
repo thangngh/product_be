@@ -13,6 +13,6 @@ import { ProductInventoryRepository } from './product_inventory.repository';
   ],
   controllers: [ProductInventoryController],
   providers: [ProductInventoryService, ProductInventoryRepository],
-  exports: [ProductInventoryService]
+  exports: [ProductInventoryService, ProductInventoryRepository]
 })
 export class ProductInventoryModule { }

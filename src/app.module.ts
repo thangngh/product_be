@@ -18,6 +18,7 @@ import { LocalesModule } from '@config/locales/locales.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { I18nInterceptor, SerializeInterceptor } from '@shared/interceptors';
 import { StorageModule } from '@config/storage/storage.module';
+import { RedisModule } from '@config/cache/redis.module';
 @Module({
   imports: [
     EnvModule,
@@ -34,15 +35,12 @@ import { StorageModule } from '@config/storage/storage.module';
     ProductItemModule,
     ProductAttributeModule,
     ProductInventoryModule,
-    PassportModule
+    PassportModule,
+    // RedisModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: SerializeInterceptor
-    },
     // {
     //   provide: APP_INTERCEPTOR,
     //   useClass: I18nInterceptor

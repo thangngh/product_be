@@ -14,6 +14,6 @@ export class ProductAttributeService {
             this.productAttributeRepository.create(item)
         )
 
-        return await this.productAttributeRepository.save(productAttribute)
+        return await this.productAttributeRepository.saveProductAttribute(productAttribute)
     }
 }

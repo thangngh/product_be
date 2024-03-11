@@ -30,4 +30,8 @@ export class AuthController {
     refreshToken(@cookie() cookie: RefreshTokenBodyDTO, @Res() res: Response) {
         return this.authService.refreshToken(cookie, res)
     }
+
+    signOut() { }
+
+
 }

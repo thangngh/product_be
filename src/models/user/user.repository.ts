@@ -10,9 +10,10 @@ export class UserRepository extends Repository<User> {
         super(User, dataSource.createEntityManager())
     }
 
-    findUserByField<K extends keyof User>(field: K, value: User[K]) {
+    findUserByField<K extends keyof User>(field: K, value: User[K], relations?: Array<keyof User>) {
         return this.findOne({
             where: { [field]: value },
+            relations: relations?.length > 0 ? relations : []
         });
     }
 
@@ -20,13 +21,23 @@ export class UserRepository extends Repository<User> {
         return this.save({ ...body })
     }
 
-    saveRefreshToken(userId: string, refreshToken: string) {
+    updateStandAloneField<K extends keyof User>(userId: string, field: K, value: User[K]) {
         return this.createQueryBuilder("user")
             .update()
             .set({
-                refreshToken
+                [field]: value
             })
             .where("user.id = :id", { id: userId })
             .execute()
     }
+
+    // saveRefreshToken(userId: string, refreshToken: string) {
+    //     return this.createQueryBuilder("user")
+    //         .update()
+    //         .set({
+    //             refreshToken
+    //         })
+    //         .where("user.id = :id", { id: userId })
+    //         .execute()
+    // }
 } 

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFiles, UseGuards, UseInterceptors, Request, Get, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductBodyDTO, CreateProductDTO } from '@shared/dtos/product/create.dto';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
@@ -7,8 +7,13 @@ import { User } from '../user/entities/user.entity';
 import { CreateProductItemBodyDTO } from '@shared/dtos/product/product_item/create.dto';
 import { CreateProductInventoryBodyDTO, CreateProductInventoryWithAttributeBodyDTO } from '@shared/dtos/product/product_inventory/create.dto';
 import { ApiBearerAuth, ApiBody, ApiExtraModels, ApiTags, getSchemaPath } from '@nestjs/swagger';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { SharpPipe } from '@shared/pipes/sharp.pipe';
+import { GetAllProductDTO, GetAllProductResponse } from '@shared/dtos/product/get.dto';
+import { PaginationDTO } from '@shared/pagination/dto/paginationQuery-dto';
+import { SerializeInterceptor } from '@shared/interceptors';
+import { Product } from './entities/product.entity';
+import { Pagination } from '@shared/pagination';
 
 @ApiTags("product")
 @Controller('product')
@@ -16,28 +21,35 @@ export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
   @UseGuards(JwtGuard)
-  @Post(CreateProductDTO.url)
-  // @UseInterceptors(FilesInterceptor("image"))
-  @UseInterceptors(SharpPipe)
   @ApiBearerAuth()
+  @Post(CreateProductDTO.url)
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'bodyProductItem', maxCount: 2 },
+    { name: 'bodyProductInventory', maxCount: 2 },
+  ], {}))
   create(
     @authUser() user: User,
-    // @UploadedFiles() file: Array<Express.Multer.File>,
-    @UploadedFiles() file: {
-      bodyProductItem?: Express.Multer.File;
-      bodyProductInventory?: Express.Multer.File;
+    @UploadedFiles(SharpPipe) files: {
+      bodyProductItem?: Record<string, Array<Express.Multer.File>>;
+      bodyProductInventory?: Record<string, Array<Express.Multer.File>>;
     },
-    @Body() productBody: CreateProductBodyDTO,
-    @Body("bodyProductItem") productItemBody: CreateProductItemBodyDTO[], // have image
-    @Body("bodyProductInventory") productInventoryBody:
-      CreateProductInventoryWithAttributeBodyDTO[], //have image
+    @Body() body: {
+      productBody: CreateProductBodyDTO,
+      bodyProductItem: CreateProductItemBodyDTO[],
+      bodyProductInventory: CreateProductInventoryWithAttributeBodyDTO[],
+    },
   ) {
-    console.log("file controller", file)
-    console.log("productInventoryBody", productInventoryBody)
-    // return this.productService.create(
-    //   user,
-    //   productBody,
-    //   productItemBody,
-    //   productInventoryBody)
+    return this.productService.create(
+      user,
+      body,
+      files
+    )
+  }
+
+
+  // @UseInterceptors(SerializeInterceptor<Pagination<Product>>)
+  @Get(GetAllProductDTO.url)
+  getAllProduct(@Query() query: PaginationDTO) {
+    return this.productService.getAllProduct(query)
   }
 }

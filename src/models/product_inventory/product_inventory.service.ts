@@ -10,11 +10,10 @@ export class ProductInventoryService {
     ) { }
 
     async create(body: CreateProductInventoryBodyDTO[]) {
-
         const productInventory = body.map((item) =>
             this.productInventoryRepository.create(item)
         )
 
-        return await this.productInventoryRepository.save(productInventory)
+        return await this.productInventoryRepository.saveProductInventory(productInventory)
     }
 }

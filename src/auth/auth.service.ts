@@ -42,7 +42,7 @@ export class AuthService {
                 })
         ])
 
-        return { accessToken, refreshToken };
+        return { accessToken, accessTokenExpired: this.envConfig.JWT_SECRET_EXPIRES(), refreshToken, refreshTokenExpired: this.envConfig.JWT_REFRESH_SECRET_EXPIRES() };
     }
 
     async verifyToken(payload: JWTPayload) {
@@ -62,13 +62,11 @@ export class AuthService {
         const { username, password, email } = body;
 
         const existUsername = await this.userService.findUserByField("username", username)
-
         if (!!existUsername) {
             throw new BadRequestException(SYSTEM_CODE.USER_ALREADY_EXISTS)
         }
 
         const existEmail = await this.userService.findUserByField("email", email)
-
         if (!!existEmail) {
             throw new BadRequestException(SYSTEM_CODE.EMAIL_ALREADY_EXISTS)
         }
@@ -76,7 +74,6 @@ export class AuthService {
         const saltPassword = await hashValue(password);
 
         const saveUser = await this.userService.registerUser({ ...body, password: saltPassword })
-
         if (!saveUser) {
             throw new BadRequestException(SYSTEM_CODE.USERNAME_OR_PASSWORD_INVALID)
         }
@@ -91,7 +88,7 @@ export class AuthService {
 
         this.userRoleService.createUserRole([{ userId: saveUser.id, roleId: getInitRole }])
 
-        res.cookie("rfToken", refreshToken, { httpOnly: true, secure: true, sameSite: 'strict' })
+        res.cookie("rfToken", { refreshToken }, { httpOnly: true, secure: true, sameSite: 'strict' })
 
         res.json({
             accessToken
@@ -155,15 +152,16 @@ export class AuthService {
             throw new ForbiddenException(SYSTEM_CODE.ACCOUNT_LOCKED)
         }
 
-        const { accessToken, refreshToken } = await this.signToken(getUser.username, getUser.id)
+        const { accessToken, refreshToken, accessTokenExpired } = await this.signToken(getUser.username, getUser.id)
         const saltRefreshToken = await this.saltToken(refreshToken)
 
         this.userService.updateRefreshToken(getUser, saltRefreshToken)
 
-        res.cookie("rfToken", refreshToken, { httpOnly: true })
+        res.cookie("rfToken", refreshToken, { httpOnly: true, secure: true })
 
         res.json({
-            accessToken
+            accessToken,
+            accessTokenExpired: parseInt(accessTokenExpired) + Date.now()
         })
     }
 }

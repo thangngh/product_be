@@ -12,7 +12,6 @@ export class ProductItemService {
     async create(body: CreateProductItemBodyDTO[]) {
 
         const productItem = body.map((item) => this.productItemRepository.create(item))
-
-        return await this.productItemRepository.save(productItem)
+        return await this.productItemRepository.saveProductItem(productItem)
     }
 }

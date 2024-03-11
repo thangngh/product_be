@@ -1,15 +1,22 @@
+import BaseEntities from "@base/base.entity";
+import { Brand } from "@models/brand/entities/brand.entity";
+import { Manufacturer } from "@models/manufacturer/entities/manufacturer.entity";
+import { ProductInventory } from "@models/product_inventory/entities/product_inventory.entity";
+import { ProductItem } from "@models/product_item/entities/product_item.entity";
+import { User } from "@models/user/entities/user.entity";
+import { Exclude } from "class-transformer";
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
-import BaseEntities from "src/base/base.entity";
-import { Brand } from "src/models/brand/entities/brand.entity";
-import { Manufacturer } from "src/models/manufacturer/entities/manufacturer.entity";
-import { ProductInventory } from "src/models/product_inventory/entities/product_inventory.entity";
-import { ProductItem } from "src/models/product_item/entities/product_item.entity";
-import { User } from "src/models/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()
 export class Product extends BaseEntities {
 
+    constructor(partial?: Partial<Product>) {
+        super();
+        Object.assign(this, partial);
+    }
+
+    @Exclude()
     @IsString()
     @IsNotEmpty()
     @Column({ name: 'product_name', nullable: false })
@@ -48,4 +55,5 @@ export class Product extends BaseEntities {
     @ManyToOne(() => Manufacturer, manufacturer => manufacturer.product)
     @JoinColumn({ name: 'manufacturer_id' })
     manufacturer: Manufacturer
+
 }

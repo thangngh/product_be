@@ -12,6 +12,6 @@ import { ProductItemRepository } from './product_item.repository';
   ],
   controllers: [ProductItemController],
   providers: [ProductItemService, ProductItemRepository],
-  exports: [ProductItemService]
+  exports: [ProductItemService, ProductItemRepository]
 })
 export class ProductItemModule { }

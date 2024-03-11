@@ -100,5 +100,20 @@ export class EnvServiceConfig {
     CLOUDINARY_API_SECRET() {
         return this.configService.get<string>("CLOUDINARY_API_SECRET")
     }
+
+    @IsString()
+    REDIS_HOST() {
+        return this.configService.get<string>("REDIS_HOST")
+    }
+
+    @IsString()
+    REDIS_PASSWORD() {
+        return this.configService.get<string>("REDIS_PASSWORD")
+    }
+
+    @IsNumber()
+    REDIS_PORT() {
+        return this.configService.get<number>("REDIS_PORT")
+    }
 }
 

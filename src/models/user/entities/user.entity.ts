@@ -1,45 +1,48 @@
-import { UseInterceptors } from "@nestjs/common";
+import BaseEntities from "@base/base.entity";
+import { Product } from "@models/product/entities/product.entity";
+import { UserRole } from "@models/user_role/entities/user_role.entity";
 import { EGender } from "@shared/constant";
-import { SerializeInterceptor } from "@shared/interceptors/serialize.interceptor";
-import { Expose } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsStrongPassword } from "class-validator";
-import BaseEntities from "src/base/base.entity";
-import { Product } from "src/models/product/entities/product.entity";
-import { UserRole } from "src/models/user_role/entities/user_role.entity";
 import { Column, Entity, Index, OneToMany } from "typeorm";
 
-@UseInterceptors(SerializeInterceptor<User>)
 @Entity()
 export class User extends BaseEntities {
 
+    @Expose()
     @IsNotEmpty()
     @Column({ name: 'user_name', nullable: false, unique: true })
     username: string;
 
-    @Expose()
+
     @IsNotEmpty()
     @IsStrongPassword()
     @Column({ nullable: false })
     password: string;
 
+    @Expose()
     @IsNotEmpty()
     @Index()
     @Column({ name: 'first_name' })
     firstName: string;
 
+    @Expose()
     @IsNotEmpty()
     @Index()
     @Column({ name: 'last_name' })
     lastName: string;
 
+    @Expose()
     @Column({ name: 'phone_number', nullable: true })
     phoneNumber: string
 
+    @Expose()
     @IsEmail()
     @IsNotEmpty()
     @Column({ nullable: false })
     email: string
 
+    @Expose()
     @IsEnum(EGender)
     @Column({ nullable: true })
     gender: EGender;
@@ -48,6 +51,7 @@ export class User extends BaseEntities {
     @Column({ name: 'refresh_token', nullable: true })
     refreshToken: string;
 
+    @Expose()
     @OneToMany(() => UserRole, userRole => userRole.user)
     userRole: UserRole[]
 

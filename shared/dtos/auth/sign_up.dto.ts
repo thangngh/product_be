@@ -1,5 +1,5 @@
-import { METHOD, VALIDATE_MESSAGE, strongPassword } from "@shared/constant";
-import { IsEmail, IsNotEmpty, IsString, IsStrongPassword, Matches, MaxLength } from "class-validator";
+import { METHOD, VALIDATE_MESSAGE, strongEmail, strongPassword } from "@shared/constant";
+import { IsNotEmpty, IsString, Length, Matches, MaxLength } from "class-validator";
 import { DTO, ResponseDTO } from "../base.dto";
 import { User } from "src/models/user/entities/user.entity";
 import { UseInterceptors } from "@nestjs/common";
@@ -17,14 +17,14 @@ export class SignUpBodyDTO {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
-    @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
+    @MaxLength(25, { message: VALIDATE_MESSAGE.TO_LONG })
     @Matches(strongPassword, { message: VALIDATE_MESSAGE.NOT_MATCH })
     public password!: string;
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsEmail()
-    @MaxLength(20, { message: VALIDATE_MESSAGE.TO_LONG })
+    @MaxLength(25, { message: `Email ${VALIDATE_MESSAGE.TO_LONG}` })
+    @Matches(strongEmail, { message: VALIDATE_MESSAGE.NOT_MATCH })
     public email!: string;
 
     @ApiProperty()

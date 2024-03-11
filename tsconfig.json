@@ -13,7 +13,10 @@
     "paths": {
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@template/*": ["templates/*"]
+      "@template/*": ["templates/*"],
+      "@models/*": ["src/models/*"],
+      "@auth/*": ["src/auth/*"],
+      "@base/*": ["src/base/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

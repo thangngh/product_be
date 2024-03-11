@@ -1,7 +1,5 @@
-// cloudinary.provider.ts
 
 import { EnvServiceConfig } from '@config/env/env-config.service';
-import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary } from 'cloudinary';
 import "dotenv/config"
 export const StorageProvider = {
@@ -11,6 +9,7 @@ export const StorageProvider = {
             cloud_name: config.CLOUDINARY_CLOUD_NAME(),
             api_key: config.CLOUDINARY_API_KEY(),
             api_secret: config.CLOUDINARY_API_SECRET(),
+            secure: true,
         });
     },
     inject: [EnvServiceConfig],

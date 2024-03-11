@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsString, Length } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString, Length, MaxLength } from "class-validator";
 import { DTO } from "../base.dto";
 import { SignupDTO } from "../auth/sign_up.dto";
 import { METHOD } from "@shared/constant";
@@ -9,12 +9,12 @@ export class CreateProductBodyDTO {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    @Length(5, 20)
+    @MaxLength(20)
     productName: string;
 
     @ApiProperty()
     @IsNotEmpty()
-    @Length(5, 100)
+    @MaxLength(100)
     desc: string;
 
     @ApiProperty()
@@ -36,7 +36,7 @@ export class CreateProductDTO extends DTO {
     public readonly method = METHOD.POST;
     public readonly responseDTOClass = CreateProductResponseDTO;
 
-    public bodyDTO: undefined;
+    public bodyDTO: CreateProductBodyDTO;
     public paramDTO: undefined;
     public queryDTO: undefined;
 }

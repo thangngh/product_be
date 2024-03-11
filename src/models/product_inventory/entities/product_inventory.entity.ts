@@ -1,8 +1,7 @@
-import { Type } from "class-transformer";
+import BaseEntities from "@base/base.entity";
+import { Product } from "@models/product/entities/product.entity";
+import { ProductAttribute } from "@models/product_attribute/entities/product_attribute.entity";
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
-import BaseEntities from "src/base/base.entity";
-import { Product } from "src/models/product/entities/product.entity";
-import { ProductAttribute } from "src/models/product_attribute/entities/product_attribute.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity()

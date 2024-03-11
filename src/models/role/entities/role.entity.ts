@@ -1,5 +1,5 @@
+import { UserRole } from "@models/user_role/entities/user_role.entity";
 import { IsNotEmpty, IsOptional } from "class-validator";
-import { UserRole } from "src/models/user_role/entities/user_role.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

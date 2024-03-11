@@ -35,8 +35,19 @@ export enum SYSTEM_CODE {
     USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS",
     EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS",
     TOKEN_EXPIRED = "TOKEN_EXPIRED",
-    ACCOUNT_LOCKED = "ACCOUNT_LOCKED"
+    ACCOUNT_LOCKED = "ACCOUNT_LOCKED",
+    ACCOUNT_ALREADY_ACTIVATED = 'ACCOUNT_ALREADY_ACTIVATED'
 }
+
+export enum AllowedMimeTypes {
+    JPEG = 'image/jpeg',
+    PNG = 'image/png',
+    GIF = 'image/gif',
+    BMP = 'image/bmp',
+    SVG = 'image/svg+xml',
+    WEBP = 'image/webp',
+}
+
 
 export enum VALIDATE_MESSAGE {
     TO_LONG = 'To Long',
@@ -46,6 +57,7 @@ export enum VALIDATE_MESSAGE {
 
 
 export const strongPassword = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/g
+export const strongEmail = /^[a-zA-Z0-9.]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export enum LANGUAGE {
     ENGLISH = 2,

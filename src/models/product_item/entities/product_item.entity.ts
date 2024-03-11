@@ -1,5 +1,5 @@
+import { Product } from "@models/product/entities/product.entity";
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { Product } from "src/models/product/entities/product.entity";
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

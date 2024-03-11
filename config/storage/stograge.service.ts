@@ -4,18 +4,6 @@ import { UploadApiErrorResponse, UploadApiResponse, v2 as cloudinary } from 'clo
 
 @Injectable()
 export class StorageService {
-    // uploadFile(file: Express.Multer.File) {
-    //     return new Promise((resolve, reject) => {
-    //         const uploadStream = cloudinary.uploader.upload_stream(
-    //             (error, result) => {
-    //                 if (error) return reject(error);
-    //                 resolve(result);
-    //             },
-    //         );
-
-    //         streamifier.createReadStream(file.buffer).pipe(uploadStream);
-    //     });
-    // }
 
     async uploadFile(
         file: Express.Multer.File,
@@ -46,18 +34,27 @@ export class StorageService {
 
     async uploadManyBase64(
         files: string[],
+        source: string
     ) {
-        const urls = await Promise.all(files.map(async (file): Promise<string> => {
-            const { secure_url } = await this.uploadFileFromBase64(file);
-            return secure_url;
-        }));
-        return urls
+        try {
+            const urls = await Promise.all(files.map(async (file): Promise<any> => {
+                const url = await this.uploadFileFromBase64(file, source)
+                return url
+            }));
+            return urls
+
+        } catch (error) {
+            console.log("error", error)
+        }
     }
 
     async uploadFileFromBase64(
         data: string,
+        source: string
     ): Promise<UploadApiResponse | UploadApiErrorResponse> {
-        return cloudinary.uploader.upload(data)
+        return await cloudinary.uploader.upload(data, {
+            folder: source
+        })
     }
 
     async uploadFilesFromUrl(
@@ -73,6 +70,15 @@ export class StorageService {
         url: string,
     ): Promise<UploadApiResponse | UploadApiErrorResponse> {
         return cloudinary.uploader.upload(url)
+    }
+
+    async getImage(publicId: string) {
+        try {
+            const { url } = await cloudinary.api.resource(publicId);
+            return url;
+        } catch (error) {
+            console.error("error: ", error);
+        }
     }
 
 }

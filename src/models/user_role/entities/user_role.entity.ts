@@ -1,7 +1,7 @@
+import BaseEntities from "@base/base.entity";
+import Role from "@models/role/entities/role.entity";
+import { User } from "@models/user/entities/user.entity";
 import { IsNotEmpty, IsString } from "class-validator";
-import BaseEntities from "src/base/base.entity";
-import Role from "src/models/role/entities/role.entity";
-import { User } from "src/models/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity()

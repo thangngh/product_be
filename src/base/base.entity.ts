@@ -1,12 +1,14 @@
-import { Type } from 'class-transformer'
+import { Expose, Type } from 'class-transformer'
 import { IsBoolean, IsDate, IsOptional } from 'class-validator'
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 export default class BaseEntities extends BaseEntity {
 
+    @Expose()
     @PrimaryGeneratedColumn("uuid")
     id: string
 
+    @Expose()
     @Type(() => Date)
     @IsDate()
     @Column({
@@ -17,6 +19,7 @@ export default class BaseEntities extends BaseEntity {
     })
     createAt: Date
 
+    @Expose()
     @Type(() => Date)
     @IsDate()
     @IsOptional()
@@ -27,6 +30,7 @@ export default class BaseEntities extends BaseEntity {
     })
     updateAt: Date
 
+    @Expose()
     @IsBoolean()
     @Column({
         name: 'is_active',
